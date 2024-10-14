@@ -4,7 +4,7 @@ using System.Collections;
 public class HeroKnight : MonoBehaviour {
 
     [SerializeField] float      m_speed = 4.0f;
-    [SerializeField] float      m_jumpForce = 7.5f;
+    [SerializeField] float      m_jumpForce = 10.0f;
     [SerializeField] float      m_rollForce = 6.0f;
     [SerializeField] bool       m_noBlood = false;
     [SerializeField] GameObject m_slideDust;
@@ -53,14 +53,14 @@ public class HeroKnight : MonoBehaviour {
         if(m_rollCurrentTime > m_rollDuration)
             m_rolling = false;
 
-        //Check if character just landed on the ground
+        // Check if character just landed on the ground
         if (!m_grounded && m_groundSensor.State())
         {
             m_grounded = true;
             m_animator.SetBool("Grounded", m_grounded);
         }
 
-        //Check if character just started falling
+        // Check if character just started falling
         if (m_grounded && !m_groundSensor.State())
         {
             m_grounded = false;
@@ -68,46 +68,47 @@ public class HeroKnight : MonoBehaviour {
         }
 
         // -- Handle input and movement --
-        float inputX = Input.GetAxis("Horizontal");
+        float inputX = 0.0f;
 
-        // Swap direction of sprite depending on walk direction
-        if (inputX > 0)
+        // Use arrow keys for movement
+        if (Input.GetKey(KeyCode.RightArrow))
         {
+            inputX = 1.0f;
             GetComponent<SpriteRenderer>().flipX = false;
             m_facingDirection = 1;
         }
-            
-        else if (inputX < 0)
+        else if (Input.GetKey(KeyCode.LeftArrow))
         {
+            inputX = -1.0f;
             GetComponent<SpriteRenderer>().flipX = true;
             m_facingDirection = -1;
         }
 
         // Move
-        if (!m_rolling )
+        if (!m_rolling)
             m_body2d.velocity = new Vector2(inputX * m_speed, m_body2d.velocity.y);
 
-        //Set AirSpeed in animator
+        // Set AirSpeed in animator
         m_animator.SetFloat("AirSpeedY", m_body2d.velocity.y);
 
         // -- Handle Animations --
-        //Wall Slide
+        // Wall Slide
         m_isWallSliding = (m_wallSensorR1.State() && m_wallSensorR2.State()) || (m_wallSensorL1.State() && m_wallSensorL2.State());
         m_animator.SetBool("WallSlide", m_isWallSliding);
 
-        //Death
+        // Death
         if (Input.GetKeyDown("e") && !m_rolling)
         {
             m_animator.SetBool("noBlood", m_noBlood);
             m_animator.SetTrigger("Death");
         }
-            
-        //Hurt
+
+        // Hurt
         else if (Input.GetKeyDown("q") && !m_rolling)
             m_animator.SetTrigger("Hurt");
 
-        //Attack
-        else if(Input.GetMouseButtonDown(0) && m_timeSinceAttack > 0.25f && !m_rolling)
+        // Attack
+        else if (Input.GetKeyDown("a") && m_timeSinceAttack > 0.25f && !m_rolling)
         {
             m_currentAttack++;
 
@@ -127,13 +128,13 @@ public class HeroKnight : MonoBehaviour {
         }
 
         // Block
-        else if (Input.GetMouseButtonDown(1) && !m_rolling)
+        else if (Input.GetKeyDown("d") && !m_rolling)
         {
             m_animator.SetTrigger("Block");
             m_animator.SetBool("IdleBlock", true);
         }
 
-        else if (Input.GetMouseButtonUp(1))
+        else if (Input.GetKeyDown("d"))
             m_animator.SetBool("IdleBlock", false);
 
         // Roll
@@ -143,10 +144,9 @@ public class HeroKnight : MonoBehaviour {
             m_animator.SetTrigger("Roll");
             m_body2d.velocity = new Vector2(m_facingDirection * m_rollForce, m_body2d.velocity.y);
         }
-            
 
-        //Jump
-        else if (Input.GetKeyDown("space") && m_grounded && !m_rolling)
+        // Jump
+        else if (Input.GetKeyDown(KeyCode.UpArrow) && m_grounded && !m_rolling)
         {
             m_animator.SetTrigger("Jump");
             m_grounded = false;
@@ -155,7 +155,8 @@ public class HeroKnight : MonoBehaviour {
             m_groundSensor.Disable(0.2f);
         }
 
-        //Run
+
+        // Run
         else if (Mathf.Abs(inputX) > Mathf.Epsilon)
         {
             // Reset timer
@@ -163,15 +164,16 @@ public class HeroKnight : MonoBehaviour {
             m_animator.SetInteger("AnimState", 1);
         }
 
-        //Idle
+        // Idle
         else
         {
             // Prevents flickering transitions to idle
             m_delayToIdle -= Time.deltaTime;
-                if(m_delayToIdle < 0)
-                    m_animator.SetInteger("AnimState", 0);
+            if(m_delayToIdle < 0)
+                m_animator.SetInteger("AnimState", 0);
         }
     }
+
 
     // Animation Events
     // Called in slide animation.
