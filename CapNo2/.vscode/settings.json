@@ -56,5 +56,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "24-02-CapNo2.sln"
+    "dotnet.defaultSolution": "CapNo2.sln"
 }
