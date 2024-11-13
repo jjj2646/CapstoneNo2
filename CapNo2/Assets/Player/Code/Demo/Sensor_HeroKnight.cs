@@ -14,10 +14,14 @@ public class Sensor_HeroKnight : MonoBehaviour {
 
     public bool State()
     {
+        // 벽 충돌을 무시하고 바닥에만 접촉한 상태를 확인하도록 수정
         if (m_DisableTimer > 0)
             return false;
-        return m_ColCount > 0;
+
+        // 바닥과의 충돌만 체크
+        return m_ColCount > 0; // 바닥과 접촉 시 true 반환
     }
+
 
     void OnTriggerEnter2D(Collider2D other)
     {

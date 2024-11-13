@@ -3,7 +3,11 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - PalyerDamage
+  - Platform
+  - Enemy
+  - ground
   layers:
   - Default
   - TransparentFX
@@ -13,11 +17,11 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Platform
+  - Enemy
+  - Player
+  - PlayerDamage
+  - Ground
   - 
   - 
   - 

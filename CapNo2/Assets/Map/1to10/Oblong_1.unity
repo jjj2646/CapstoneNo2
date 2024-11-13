@@ -5507,8 +5507,8 @@ Tilemap:
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Origin: {x: -10, y: -5, z: 0}
-  m_Size: {x: 19, y: 15, z: 1}
+  m_Origin: {x: -19, y: -5, z: 0}
+  m_Size: {x: 28, y: 15, z: 1}
   m_TileAnchor: {x: 0.5, y: 0.5, z: 0}
   m_TileOrientation: 0
   m_TileOrientationMatrix:
@@ -7358,11 +7358,11 @@ Tilemap:
       e01: 0
       e02: 0
       e03: 0
-      e10: 0
+      e10: -0
       e11: 1
       e12: 0
       e13: 0
-      e20: 0
+      e20: -0
       e21: 0
       e22: 1
       e23: 0
@@ -7440,8 +7440,8 @@ Tilemap:
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Origin: {x: -25, y: -6, z: 0}
-  m_Size: {x: 46, y: 22, z: 1}
+  m_Origin: {x: -25, y: -9, z: 0}
+  m_Size: {x: 46, y: 25, z: 1}
   m_TileAnchor: {x: 0.5, y: 0.5, z: 0}
   m_TileOrientation: 0
   m_TileOrientationMatrix:
@@ -7496,14 +7496,10 @@ MonoBehaviour:
   playerTransform: {fileID: 1751788862}
   cameraPosition: {x: 0, y: 0, z: -10}
   cameraBounds:
-  - center: {x: -1.5, y: -1.5}
-    size: {x: 15, y: 7}
-  - center: {x: 13.5, y: -1.5}
-    size: {x: 15, y: 7}
-  - center: {x: 28.5, y: -1.5}
-    size: {x: 15, y: 7}
-  - center: {x: 13.5, y: 5.5}
-    size: {x: 15, y: 7}
+  - center: {x: 10, y: 10}
+    size: {x: 10, y: 10}
+  - center: {x: 20, y: 10}
+    size: {x: 10, y: 10}
   cameraMoveSpeed: 10
 --- !u!81 &1516710314
 AudioListener:
