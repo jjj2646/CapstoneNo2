@@ -6,7 +6,6 @@ public class HeroKnight : MonoBehaviour
     [SerializeField] float m_speed = 4.0f;          // 이동 속도
     [SerializeField] float m_jumpForce = 10.0f;     // 점프 힘
     [SerializeField] float m_rollForce = 6.0f;      // 구르기 힘
-    [SerializeField] bool m_noBlood = false;        // 피가 보이지 않도록 설정
     [SerializeField] GameObject m_slideDust;        // 슬라이드 시 생성되는 먼지 효과 오브젝트
     [SerializeField] int maxHealth = 100;           // 최대 체력
 
@@ -117,18 +116,8 @@ public class HeroKnight : MonoBehaviour
         m_isWallSliding = (m_wallSensorR1.State() && m_wallSensorR2.State()) || (m_wallSensorL1.State() && m_wallSensorL2.State());
         m_animator.SetBool("WallSlide", m_isWallSliding);
 
-        // 사망 처리
-        if (Input.GetKeyDown("e") && !m_rolling)
-        {
-            m_animator.SetBool("noBlood", m_noBlood);
-            m_animator.SetTrigger("Death");
-        }
-        // 피격 처리
-        else if (Input.GetKeyDown("q") && !m_rolling)
-            m_animator.SetTrigger("Hurt");
-
         // 공격 처리
-        else if (Input.GetKeyDown("a") && m_timeSinceAttack > 0.25f && !m_rolling)
+        if (Input.GetKeyDown("a") && m_timeSinceAttack > 0.25f && !m_rolling)
         {
             m_currentAttack++;
             if (m_currentAttack > 3)
@@ -139,15 +128,6 @@ public class HeroKnight : MonoBehaviour
             m_animator.SetTrigger("Attack" + m_currentAttack);
             m_timeSinceAttack = 0.0f;
         }
-
-        // 방어 처리
-        else if (Input.GetKeyDown("d") && !m_rolling)
-        {
-            m_animator.SetTrigger("Block");
-            m_animator.SetBool("IdleBlock", true);
-        }
-        else if (Input.GetKeyDown("d"))
-            m_animator.SetBool("IdleBlock", false);
 
         // 점프 처리
         else if (Input.GetKeyDown(KeyCode.UpArrow) && m_grounded && !m_rolling)
