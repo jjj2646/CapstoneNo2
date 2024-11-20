@@ -8,6 +8,7 @@ TagManager:
   - Platform
   - Enemy
   - ground
+  - Attack
   layers:
   - Default
   - TransparentFX
