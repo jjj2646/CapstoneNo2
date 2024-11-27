@@ -9,6 +9,8 @@ TagManager:
   - Enemy
   - ground
   - Attack
+  - FlyEnemy
+  - GroundEnemy
   layers:
   - Default
   - TransparentFX
