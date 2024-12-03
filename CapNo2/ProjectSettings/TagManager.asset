@@ -3,15 +3,7 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags:
-  - PalyerDamage
-  - Platform
-  - Enemy
-  - ground
-  - Attack
-  - FlyEnemy
-  - GroundEnemy
-  - Reset
+  tags: []
   layers:
   - Default
   - TransparentFX
@@ -21,12 +13,12 @@ TagManager:
   - UI
   - 
   - 
-  - Platform
-  - Enemy
-  - Player
-  - PlayerDamage
-  - Ground
-  - Reset
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
   - 
   - 
   - 

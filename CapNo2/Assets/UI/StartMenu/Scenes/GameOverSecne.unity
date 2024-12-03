@@ -900,7 +900,7 @@ GameObject:
   - component: {fileID: 1705870143}
   - component: {fileID: 1705870144}
   m_Layer: 5
-  m_Name: GameOver
+  m_Name: GameOverCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

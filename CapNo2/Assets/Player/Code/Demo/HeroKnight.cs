@@ -1,8 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class HeroKnight : MonoBehaviour
 {
+    
     [SerializeField] float m_speed = 4.0f;          // 이동 속도
     [SerializeField] float m_jumpForce = 10.0f;     // 점프 힘
     [SerializeField] float m_rollForce = 6.0f;      // 구르기 힘
@@ -30,6 +33,12 @@ public class HeroKnight : MonoBehaviour
     private int currentHealth;                      // 현재 체력
     private bool isDead = false;                    // 캐릭터가 사망했는지 여부
 
+    public Image fadeImage;                         // Canvas의 Image를 연결
+
+    public Image[] hearts;      // 하트 이미지 배열
+    public Sprite fullHeart;    // 채워진 하트 이미지
+    public Sprite emptyHeart;   // 빈 하트 이미지
+
     void Start()
     {
         m_animator = GetComponent<Animator>();
@@ -42,6 +51,8 @@ public class HeroKnight : MonoBehaviour
 
         spriteRenderer = GetComponent<SpriteRenderer>();  // 스프라이트 렌더러 초기화
         currentHealth = maxHealth;                        // 체력을 최대 체력으로 초기화
+
+        UpdateHealthUI();
     }
 
     void Update()
@@ -100,8 +111,8 @@ public class HeroKnight : MonoBehaviour
             m_body2d.velocity = new Vector2(rollDirection * m_rollForce, m_body2d.velocity.y);
         }
 
-        // 구르기 시작 처리 (안쓰기 위해 alt 추가)
-        if (Input.GetKeyDown("left shift") && !m_rolling && !m_isWallSliding && Input.GetKeyDown("left alt"))
+        // 구르기 시작 처리
+        if (Input.GetKeyDown("left shift") && !m_rolling && !m_isWallSliding)
         {
             m_rolling = true;
             m_animator.SetTrigger("Roll");
@@ -158,7 +169,7 @@ public class HeroKnight : MonoBehaviour
     void OnCollisionEnter2D(Collision2D collision)
     {
         // 플랫폼 또는 적과 충돌 시 피해 처리
-        if ((collision.gameObject.tag == "Platform") || (collision.gameObject.tag == "FlyEnemy") || (collision.gameObject.tag == "GroundEnemy"))
+        if ((collision.gameObject.tag == "Platform") || (collision.gameObject.tag == "Enemy"))
         {
             Vector2 collisionPoint = collision.contacts[0].point; 
             OnDamaged(collision.transform.position);
@@ -177,10 +188,34 @@ public class HeroKnight : MonoBehaviour
         m_animator.SetTrigger("Hurt");
         Invoke("OffDamaged", 2);  // 무적 상태 해제 타이머
 
-        currentHealth -= 50;  // 체력 감소
+        currentHealth -= 1;  // 체력 감소
+
         if (currentHealth <= 0)
         {
-            Die();  // 사망 함수 호출
+            currentHealth = 0;  // 체력이 0 이하로 내려가지 않도록 제한
+            UpdateHealthUI();    // 체력이 0이면 UI 갱신
+            Die();               // 체력이 0이면 Die() 함수 호출
+        }
+        else
+        {
+            UpdateHealthUI();    // 체력이 0이 아니면 UI 갱신
+        }
+
+    }
+
+    void UpdateHealthUI()
+    {
+        // 현재 체력에 맞게 하트 이미지 갱신
+        for (int i = 0; i < hearts.Length; i++)
+        {
+            if (i < currentHealth)
+            {
+                hearts[i].sprite = fullHeart;  // 체력이 있으면 채워진 하트
+            }
+            else
+            {
+                hearts[i].sprite = emptyHeart; // 체력이 없으면 빈 하트
+            }
         }
     }
 
@@ -206,8 +241,28 @@ public class HeroKnight : MonoBehaviour
         m_body2d.isKinematic = false;      // 중력과 물리 효과가 다시 적용되도록 설정
 
         // 중력이 작용하도록 하여 사망 후 떨어지게 함
-    }
 
+        StartCoroutine(FadeToBlackAndLoadScene("GameOverScene", 5f));
+
+    }
+     private IEnumerator FadeToBlackAndLoadScene(string sceneName, float delay)
+    {
+        // 사망 후 딜레이 (애니메이션 시간을 고려)
+        yield return new WaitForSeconds(delay);
+
+        // 페이드 인 (화면 어둡게)
+        float fadeDuration = 2f; // 페이드 인 시간
+        for (float t = 0; t < fadeDuration; t += Time.deltaTime)
+        {
+            float normalizedTime = t / fadeDuration;
+            Color color = fadeImage.color;
+            color.a = Mathf.Lerp(0, 1, normalizedTime); // 알파 값 증가
+            fadeImage.color = color;
+            yield return null;
+        }
+        SceneManager.LoadScene("GameOverScene"); //어떤 씬 이름으로 이동할 건지
+        Debug.Log("BlackScene Go");
+    }
     /*    
     // 체력 회복 함수
     public void Heal(int amount)
