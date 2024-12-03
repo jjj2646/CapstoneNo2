@@ -11,6 +11,7 @@ TagManager:
   - Attack
   - FlyEnemy
   - GroundEnemy
+  - Reset
   layers:
   - Default
   - TransparentFX
@@ -25,7 +26,7 @@ TagManager:
   - Player
   - PlayerDamage
   - Ground
-  - 
+  - Reset
   - 
   - 
   - 
