@@ -11,6 +11,7 @@ TagManager:
   - Attack
   - FlyEnemy
   - GroundEnemy
+  - BackgroundSound
   layers:
   - Default
   - TransparentFX
