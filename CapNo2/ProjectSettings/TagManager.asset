@@ -3,7 +3,13 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - ground
+  - Platform
+  - Attack
+  - FlyEnemy
+  - GroundEnemy
+  - Reset
   layers:
   - Default
   - TransparentFX
