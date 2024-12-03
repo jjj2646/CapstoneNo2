@@ -4,14 +4,16 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - PalyerDamage
-  - Platform
-  - Enemy
   - ground
+  - Platform
   - Attack
   - FlyEnemy
   - GroundEnemy
+<<<<<<< HEAD
   - BackgroundSound
+=======
+  - Reset
+>>>>>>> 3a0c9e5d323271037b12c2fcc064616529750e51
   layers:
   - Default
   - TransparentFX
@@ -21,12 +23,12 @@ TagManager:
   - UI
   - 
   - 
-  - Platform
-  - Enemy
-  - Player
-  - PlayerDamage
-  - Ground
-  - Diamond
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
   - 
   - 
   - 

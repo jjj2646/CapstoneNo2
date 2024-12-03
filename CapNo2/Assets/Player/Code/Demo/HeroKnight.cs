@@ -111,8 +111,8 @@ public class HeroKnight : MonoBehaviour
             m_body2d.velocity = new Vector2(rollDirection * m_rollForce, m_body2d.velocity.y);
         }
 
-        // 구르기 시작 처리
-        if (Input.GetKeyDown("left shift") && !m_rolling && !m_isWallSliding)
+        // 구르기 시작 처리 (입력제한 "p" 할당)
+        if ((Input.GetKeyDown("left shift") && Input.GetKeyDown("p")) && !m_rolling && !m_isWallSliding)
         {
             m_rolling = true;
             m_animator.SetTrigger("Roll");
@@ -174,6 +174,12 @@ public class HeroKnight : MonoBehaviour
             Vector2 collisionPoint = collision.contacts[0].point; 
             OnDamaged(collision.transform.position);
         }
+        // 떨어지면 리셋
+        else if (collision.gameObject.tag == "Reset")
+        {
+            Die();
+        }
+
     }
 
     // 피격 처리 함수
