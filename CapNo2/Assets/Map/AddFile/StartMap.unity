@@ -1985,6 +1985,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 5
   rollSpeedMultiplier: 2
+--- !u!114 &186834693
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 186834672}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b00ca82ff5eb0f24bada21fba0848e33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Map: Map
 --- !u!1001 &198270415
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2328,6 +2341,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6323719953710832613, guid: a4b4a6d32bcb19248a754d6602ffc7e4, type: 3}
       insertIndex: -1
       addedObject: {fileID: 186834679}
+    - targetCorrespondingSourceObject: {fileID: 6323719953710832613, guid: a4b4a6d32bcb19248a754d6602ffc7e4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 186834693}
   m_SourcePrefab: {fileID: 100100000, guid: a4b4a6d32bcb19248a754d6602ffc7e4, type: 3}
 --- !u!1001 &393613852
 PrefabInstance:
@@ -3703,7 +3719,7 @@ MonoBehaviour:
   cameraBounds:
   - center: {x: 0, y: -25}
     size: {x: 16, y: 60}
-  cameraMoveSpeed: 8
+  cameraMoveSpeed: 3
 --- !u!81 &1721697448
 AudioListener:
   m_ObjectHideFlags: 0
