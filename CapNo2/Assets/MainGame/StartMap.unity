@@ -141,7 +141,7 @@ GameObject:
   - component: {fileID: 72192703}
   m_Layer: 0
   m_Name: Ground
-  m_TagString: Untagged
+  m_TagString: Goal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1984,7 +1984,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
-  rollSpeedMultiplier: 2
 --- !u!1001 &198270415
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3701,9 +3700,9 @@ MonoBehaviour:
   playerTransform: {fileID: 0}
   cameraPosition: {x: 0, y: 0, z: -10}
   cameraBounds:
-  - center: {x: 0, y: -25}
+  - center: {x: 0, y: -20}
     size: {x: 16, y: 60}
-  cameraMoveSpeed: 8
+  cameraMoveSpeed: 5
 --- !u!81 &1721697448
 AudioListener:
   m_ObjectHideFlags: 0

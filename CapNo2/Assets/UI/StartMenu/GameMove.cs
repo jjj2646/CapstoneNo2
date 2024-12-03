@@ -21,16 +21,11 @@ public class GameMove : MonoBehaviour
 
     private IEnumerator LoadStartMapAndThenMove()
     {
-        // 2초 대기
-        yield return new WaitForSeconds(2f);
+        // 1초 대기
+        yield return new WaitForSeconds(1f);
 
         // StartMap으로 이동
         SceneManager.LoadScene("StartMap");
         Debug.Log("Moved to StartMap");
-
-        // 2초 후에 다른 씬으로 이동
-        yield return new WaitForSeconds(2f);
-        SceneManager.LoadScene("Map");
-        Debug.Log("Moved to Map");
     }
 }

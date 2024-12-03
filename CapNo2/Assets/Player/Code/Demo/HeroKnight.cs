@@ -174,6 +174,11 @@ public class HeroKnight : MonoBehaviour
             Vector2 collisionPoint = collision.contacts[0].point; 
             OnDamaged(collision.transform.position);
         }
+        else if (collision.gameObject.tag == "Goal")
+    {
+        Debug.Log("Goal Reached! Loading Next Scene...");
+        SceneManager.LoadScene("MainMap"); // "NextStageScene" 이름의 씬으로 이동
+    }
         // 떨어지면 리셋
         else if (collision.gameObject.tag == "Reset")
         {
