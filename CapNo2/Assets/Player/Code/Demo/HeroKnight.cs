@@ -210,7 +210,7 @@ void OnCollisionEnter2D(Collision2D collision)
         SceneManager.LoadScene("ClearScene"); // ClearScene 이름의 씬으로 이동
     }
     // 플랫폼 또는 적과 충돌 시 피해 처리
-    else if ((collision.gameObject.tag == "Platform") || (collision.gameObject.tag == "Enemy"))
+    else if ((collision.gameObject.tag == "Platform") || (collision.gameObject.tag == "Enemy") || (collision.gameObject.tag == "FlyEnemy"))
     {
         Vector2 collisionPoint = collision.contacts[0].point; 
         OnDamaged(collision.transform.position);
