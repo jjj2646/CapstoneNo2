@@ -5,11 +5,8 @@ using UnityEngine.UI;
 
 public class HeroKnight : MonoBehaviour
 {
-<<<<<<< HEAD
     public AudioClip gemSound; // 젬 사운드 클립
 
-=======
->>>>>>> 517741502bd958f22104f28b6a787a26d7cac8ff
     [SerializeField] float m_speed = 4.0f;          // 이동 속도
     [SerializeField] float m_jumpForce = 10.0f;     // 점프 힘
     [SerializeField] float m_rollForce = 6.0f;      // 구르기 힘
@@ -138,7 +135,6 @@ public class HeroKnight : MonoBehaviour
         // 애니메이터에 수직 속도 전달
         m_animator.SetFloat("AirSpeedY", m_body2d.velocity.y);
 
-<<<<<<< HEAD
         // 벽 슬라이딩 상태 확인
         m_isWallSliding = (m_wallSensorR1.State() && m_wallSensorR2.State()) || (m_wallSensorL1.State() && m_wallSensorL2.State());
         m_animator.SetBool("WallSlide", m_isWallSliding);
@@ -172,8 +168,8 @@ public class HeroKnight : MonoBehaviour
             m_groundSensor.Disable(0.2f);
         }
 
-=======
->>>>>>> 517741502bd958f22104f28b6a787a26d7cac8ff
+        
+
         // 달리기 상태 처리
         if (Mathf.Abs(inputX) > Mathf.Epsilon)
         {
@@ -188,6 +184,13 @@ public class HeroKnight : MonoBehaviour
             if (m_delayToIdle < 0)
                 m_animator.SetInteger("AnimState", 0);
         }
+    }
+    void Jump()
+    {
+        m_animator.SetTrigger("Jump");
+        m_body2d.velocity = new Vector2(m_body2d.velocity.x, m_jumpForce);
+        if (!m_grounded)
+            m_groundSensor.Disable(0.2f);
     }
 
 void OnCollisionEnter2D(Collision2D collision)
@@ -211,20 +214,12 @@ void OnCollisionEnter2D(Collision2D collision)
         Debug.Log("Goal Reached! Loading Next Scene...");
         SceneManager.LoadScene("MainMap"); // "NextStageScene" 이름의 씬으로 이동
     }
-<<<<<<< HEAD
     // 떨어지면 리셋
     else if (collision.gameObject.tag == "Reset")
     {
         Die();
     }
 
-=======
-        // 떨어지면 리셋
-        else if (collision.gameObject.tag == "Reset")
-        {
-            Die();
-        }
->>>>>>> 517741502bd958f22104f28b6a787a26d7cac8ff
     }
 
     // 피격 처리 함수
