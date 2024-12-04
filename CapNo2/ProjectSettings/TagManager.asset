@@ -10,6 +10,9 @@ TagManager:
   - Reset
   - ground
   - Goal
+  - FlyEnemy
+  - GroundEnemy
+  - Gem
   layers:
   - Default
   - TransparentFX

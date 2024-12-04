@@ -390,7 +390,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.453
+  m_Volume: 0.3
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -858,6 +858,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1607556509}
+        m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
+        m_MethodName: PlayOneShot
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 8300000, guid: 19f89c6e740e7447f9e12a8310d3e973, type: 3}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1523859447
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1039,6 +1051,7 @@ GameObject:
   - component: {fileID: 1705870138}
   - component: {fileID: 1705870143}
   - component: {fileID: 1705870144}
+  - component: {fileID: 1705870145}
   m_Layer: 5
   m_Name: GameOverCanvas
   m_TagString: Untagged
@@ -1136,8 +1149,8 @@ RectTransform:
   - {fileID: 1234184709}
   - {fileID: 720726659}
   - {fileID: 978414836}
-  - {fileID: 1523859445}
   - {fileID: 1933980702}
+  - {fileID: 1523859445}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -1171,6 +1184,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioButton: {fileID: 0}
   buttonText: {fileID: 0}
+--- !u!114 &1705870145
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1705870137}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12130721c81a16241856d102435415a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   audioSource: {fileID: 0}
   buttonClickSound: {fileID: 0}
 --- !u!1 &1729276202
@@ -1348,13 +1373,25 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1705870143}
-        m_TargetAssemblyTypeName: MainMenuMove, Assembly-CSharp
-        m_MethodName: MainMenuMoveCtrl
+      - m_Target: {fileID: 1705870145}
+        m_TargetAssemblyTypeName: GameMove, Assembly-CSharp
+        m_MethodName: GameMoveCtrl
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1607556509}
+        m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
+        m_MethodName: PlayOneShot
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 8300000, guid: 52320e590bf774734a288886eba557ba, type: 3}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 

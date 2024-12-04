@@ -3,61 +3,44 @@ using UnityEngine.UI;
 
 public class AudioToggle : MonoBehaviour
 {
-    public Button audioButton;           // UI 버튼을 연결할 변수
-    public Text buttonText;              // 버튼의 텍스트를 변경하기 위한 변수
-    public AudioSource audioSource;      // 사운드 재생용 AudioSource
-    public AudioClip buttonClickSound;   // 버튼 클릭 시 재생할 사운드 클립
-    private bool isAudioOn = true;       // 현재 오디오 상태를 저장하는 변수
+    [SerializeField] private Button audioButton; // 버튼 컴포넌트
+    [SerializeField] private Text buttonText;    // 버튼의 텍스트 (상태 표시)
 
-    void Start()
+    private bool isSoundOn = true; // 초기 사운드 상태
+
+    private void Start()
     {
-        // Null 체크 추가
         if (audioButton == null || buttonText == null)
         {
-            Debug.LogError("AudioToggle의 필드가 연결되지 않았습니다. Unity 에디터에서 audioButton과 buttonText를 연결하세요.");
+            Debug.LogError("AudioToggle: audioButton과 buttonText를 Unity 에디터에서 연결하세요.");
             return;
         }
 
-        // 시작 시 버튼 텍스트를 현재 오디오 상태에 맞게 설정
-        UpdateButtonText();
+        // 초기 버튼 상태 설정
+        UpdateButtonUI();
 
-        // 버튼에 이벤트 리스너 추가
-        audioButton.onClick.AddListener(() =>
-        {
-            ToggleAudio();
-            PlayButtonClickSound();
-        });
+        // 버튼 클릭 이벤트 연결
+        audioButton.onClick.AddListener(ToggleSound);
     }
 
-    void ToggleAudio()
+    private void ToggleSound()
     {
-        // 현재 오디오 상태를 반전
-        isAudioOn = !isAudioOn;
+        // 사운드 상태 변경
+        isSoundOn = !isSoundOn;
 
-        // 오디오 켜기/끄기
-        AudioListener.volume = isAudioOn ? 1 : 0;
+        // 오디오 전환 로직 (여기서는 Mute를 예로 들었지만, 필요에 따라 수정 가능)
+        AudioListener.pause = !isSoundOn;
 
-        // 버튼 텍스트 업데이트
-        UpdateButtonText();
+        // 버튼 UI 업데이트
+        UpdateButtonUI();
     }
 
-    void UpdateButtonText()
+    private void UpdateButtonUI()
     {
+        // 버튼 텍스트를 상태에 따라 변경
         if (buttonText != null)
         {
-            buttonText.text = isAudioOn ? "Sound: On" : "Sound: Off";
-        }
-        else
-        {
-            Debug.LogError("buttonText가 연결되지 않았습니다.");
-        }
-    }
-
-    void PlayButtonClickSound()
-    {
-        if (audioSource != null && buttonClickSound != null)
-        {
-            audioSource.PlayOneShot(buttonClickSound); // 버튼 클릭 사운드 재생
+            buttonText.text = isSoundOn ? "Sound On" : "Sound Off";
         }
     }
 }

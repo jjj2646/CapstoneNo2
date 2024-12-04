@@ -5,12 +5,17 @@ using UnityEngine.UI;
 
 public class HeroKnight : MonoBehaviour
 {
-    
+    public AudioClip gemSound; // 젬 사운드 클립
+
     [SerializeField] float m_speed = 4.0f;          // 이동 속도
     [SerializeField] float m_jumpForce = 10.0f;     // 점프 힘
     [SerializeField] float m_rollForce = 6.0f;      // 구르기 힘
     [SerializeField] GameObject m_slideDust;        // 슬라이드 시 생성되는 먼지 효과 오브젝트
     [SerializeField] int maxHealth = 100;           // 최대 체력
+
+    // 새로 추가된 변수들
+    [SerializeField] AudioClip attackSound;         // 공격 사운드
+    private AudioSource audioSource;                 // AudioSource 컴포넌트
 
     private Animator m_animator;                    // 애니메이터
     private Rigidbody2D m_body2d;                   // 2D 리지드바디
@@ -53,6 +58,9 @@ public class HeroKnight : MonoBehaviour
         currentHealth = maxHealth;                        // 체력을 최대 체력으로 초기화
 
         UpdateHealthUI();
+
+        // AudioSource 컴포넌트 추가
+        audioSource = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -138,6 +146,12 @@ public class HeroKnight : MonoBehaviour
 
             m_animator.SetTrigger("Attack" + m_currentAttack);
             m_timeSinceAttack = 0.0f;
+
+            // 공격 시 사운드 재생
+            if (attackSound != null && audioSource != null)
+            {
+                audioSource.PlayOneShot(attackSound);
+            }
         }
 
         // 점프 처리
@@ -166,24 +180,32 @@ public class HeroKnight : MonoBehaviour
         }
     }
 
-    void OnCollisionEnter2D(Collision2D collision)
+void OnCollisionEnter2D(Collision2D collision)
     {
-        // 플랫폼 또는 적과 충돌 시 피해 처리
-        if ((collision.gameObject.tag == "Platform") || (collision.gameObject.tag == "Enemy"))
-        {
-            Vector2 collisionPoint = collision.contacts[0].point; 
-            OnDamaged(collision.transform.position);
-        }
-        else if (collision.gameObject.tag == "Goal")
+        if (collision.gameObject.tag == "Gem")
+    {
+        // 다이아 사운드 재생
+        audioSource.PlayOneShot(gemSound);
+
+        // 다이아 오브젝트 삭제 (혹은 비활성화)
+        Destroy(collision.gameObject);
+    }
+    // 플랫폼 또는 적과 충돌 시 피해 처리
+    else if ((collision.gameObject.tag == "Platform") || (collision.gameObject.tag == "Enemy"))
+    {
+        Vector2 collisionPoint = collision.contacts[0].point; 
+        OnDamaged(collision.transform.position);
+    }
+    else if (collision.gameObject.tag == "Goal")
     {
         Debug.Log("Goal Reached! Loading Next Scene...");
         SceneManager.LoadScene("MainMap"); // "NextStageScene" 이름의 씬으로 이동
     }
-        // 떨어지면 리셋
-        else if (collision.gameObject.tag == "Reset")
-        {
-            Die();
-        }
+    // 떨어지면 리셋
+    else if (collision.gameObject.tag == "Reset")
+    {
+        Die();
+    }
 
     }
 
@@ -303,3 +325,4 @@ public class HeroKnight : MonoBehaviour
         }
     }
 }
+

@@ -25,7 +25,9 @@ public class Gem : MonoBehaviour
             // 사운드 효과 재생
             if (collectSound != null)
             {
-                audioSource.PlayOneShot(collectSound); // 사운드 재생
+                audioSource.clip = collectSound;
+audioSource.Play();
+
             }
 
             // 다이아몬드 오브젝트 제거
