@@ -195,6 +195,7 @@ public class HeroKnight : MonoBehaviour
 
 void OnCollisionEnter2D(Collision2D collision)
     {
+
         if (collision.gameObject.tag == "Gem")
     {
         // 다이아 사운드 재생
@@ -202,6 +203,11 @@ void OnCollisionEnter2D(Collision2D collision)
 
         // 다이아 오브젝트 삭제 (혹은 비활성화)
         Destroy(collision.gameObject);
+    }
+    else if (collision.gameObject.tag == "Cherry")
+    {
+        Debug.Log("Cherry Collected! Loading Clear Scene...");
+        SceneManager.LoadScene("ClearScene"); // ClearScene 이름의 씬으로 이동
     }
     // 플랫폼 또는 적과 충돌 시 피해 처리
     else if ((collision.gameObject.tag == "Platform") || (collision.gameObject.tag == "Enemy"))
