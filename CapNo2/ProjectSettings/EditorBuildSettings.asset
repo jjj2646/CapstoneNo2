@@ -18,12 +18,12 @@ EditorBuildSettings:
     path: Assets/UI/StartMenu/Scenes/GameOverSecne.unity
     guid: 59193a89c0529ce4a8909c3872146a99
   - enabled: 1
-    path: Assets/Map/AddFile/StartMap.unity
-    guid: 846f91aa9624ba34894e32aeaf0efcfa
-  - enabled: 1
-    path: Assets/Map/1to10/Map.unity
-    guid: e3339aca4ffddc143983f167188c6b91
-  - enabled: 1
     path: Assets/UI/StartMenu/Scenes/ClearScene.unity
     guid: 45a7c16047fa9a24db34bd2ea47a951c
+  - enabled: 1
+    path: Assets/MainGame/StartMap.unity
+    guid: d4299d41bcf8d354a8abad118ba48811
+  - enabled: 1
+    path: Assets/MainGame/MainMap.unity
+    guid: 29e4aeb61726a04499911adb09a02e4e
   m_configObjects: {}

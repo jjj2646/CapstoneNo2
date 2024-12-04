@@ -4,12 +4,12 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - ground
-  - Platform
+  - BackgroundSound
   - Attack
-  - FlyEnemy
-  - GroundEnemy
+  - Platform
   - Reset
+  - ground
+  - Goal
   layers:
   - Default
   - TransparentFX
