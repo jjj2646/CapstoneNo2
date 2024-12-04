@@ -24,25 +24,22 @@ public class ClearScreen : MonoBehaviour
     // 점수에 따라 랭크를 계산하는 함수
     string GetRank(int score)
     {
-        if (score >= 25000 && score <= 30000)
+        if (score == 1000)
         {
             return "S!!!";
         }
-        else if (score >= 20000 && score < 25000)
+        else if (score >= 800 && score < 1000)
         {
             return "A!!";
         }
-        else if (score >= 15000 && score < 20000)
+        else if (score >= 500 && score < 800)
         {
             return "B!";
         }
-        else if (score >= 10000 && score < 15000)
+        else
         {
             return "C";
         }
-        else
-        {
-            return "D";
-        }
+       
     }
 }

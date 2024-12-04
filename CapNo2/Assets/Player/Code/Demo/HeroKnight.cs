@@ -210,7 +210,7 @@ void OnCollisionEnter2D(Collision2D collision)
         SceneManager.LoadScene("ClearScene"); // ClearScene 이름의 씬으로 이동
     }
     // 플랫폼 또는 적과 충돌 시 피해 처리
-    else if ((collision.gameObject.tag == "Platform") || (collision.gameObject.tag == "Enemy") || (collision.gameObject.tag == "FlyEnemy"))
+    else if ((collision.gameObject.tag == "Platform") || (collision.gameObject.tag == "Enemy") || (collision.gameObject.tag == "GroundEnemy") || (collision.gameObject.tag == "FlyEnemy"))
     {
         Vector2 collisionPoint = collision.contacts[0].point; 
         OnDamaged(collision.transform.position);
@@ -218,7 +218,7 @@ void OnCollisionEnter2D(Collision2D collision)
     else if (collision.gameObject.tag == "Goal")
     {
         Debug.Log("Goal Reached! Loading Next Scene...");
-        SceneManager.LoadScene("MainMap"); // "NextStageScene" 이름의 씬으로 이동
+        SceneManager.LoadScene("MainMap 2"); // "NextStageScene" 이름의 씬으로 이동
     }
     // 떨어지면 리셋
     else if (collision.gameObject.tag == "Reset")
@@ -279,42 +279,45 @@ void OnCollisionEnter2D(Collision2D collision)
     }
 
     // 사망 처리 함수
-    private void Die()
+   private void Die()
+{
+    isDead = true;  // 사망 처리
+
+    // 애니메이터 트리거 설정
+    gameObject.layer = 11;
+    spriteRenderer.color = new Color(1, 1, 1, 1);
+    m_animator.SetTrigger("Death");
+
+    // 리지드바디 속도 정지 (이동은 정지시키지만 중력은 유지)
+    m_body2d.velocity = Vector2.zero;  // 리지드바디 속도 정지
+    m_body2d.isKinematic = false;      // 중력과 물리 효과가 다시 적용되도록 설정
+
+    // 중력이 작용하도록 하여 사망 후 떨어지게 함
+
+    StartCoroutine(FadeToBlackAndLoadScene("GameOverSecne", 2f));  // 코루틴 호출
+}
+
+// 화면을 어두운 색으로 페이드 인하고 씬을 전환하는 코루틴
+private IEnumerator FadeToBlackAndLoadScene(string sceneName, float delay)
+{
+    // 사망 후 딜레이 (애니메이션 시간을 고려)
+    yield return new WaitForSeconds(delay);
+
+    // 페이드 인 (화면 어둡게)
+    float fadeDuration = 2f; // 페이드 인 시간
+    for (float t = 0; t < fadeDuration; t += Time.deltaTime)
     {
-        isDead = true;  // 사망 처리
-
-        // 애니메이터 트리거 설정
-        gameObject.layer = 11;
-        spriteRenderer.color = new Color(1, 1, 1, 1);
-        m_animator.SetTrigger("Death");
-
-        // 리지드바디 속도 정지 (이동은 정지시키지만 중력은 유지)
-        m_body2d.velocity = Vector2.zero;  // 리지드바디 속도 정지
-        m_body2d.isKinematic = false;      // 중력과 물리 효과가 다시 적용되도록 설정
-
-        // 중력이 작용하도록 하여 사망 후 떨어지게 함
-
-        StartCoroutine(FadeToBlackAndLoadScene("GameOverScene", 5f));
-
+        float normalizedTime = t / fadeDuration;
+        Color color = fadeImage.color;
+        color.a = Mathf.Lerp(0, 1, normalizedTime); // 알파 값 증가
+        fadeImage.color = color;
+        yield return null;
     }
-     private IEnumerator FadeToBlackAndLoadScene(string sceneName, float delay)
-    {
-        // 사망 후 딜레이 (애니메이션 시간을 고려)
-        yield return new WaitForSeconds(delay);
 
-        // 페이드 인 (화면 어둡게)
-        float fadeDuration = 2f; // 페이드 인 시간
-        for (float t = 0; t < fadeDuration; t += Time.deltaTime)
-        {
-            float normalizedTime = t / fadeDuration;
-            Color color = fadeImage.color;
-            color.a = Mathf.Lerp(0, 1, normalizedTime); // 알파 값 증가
-            fadeImage.color = color;
-            yield return null;
-        }
-        SceneManager.LoadScene("GameOverScene"); //어떤 씬 이름으로 이동할 건지
-        Debug.Log("BlackScene Go");
-    }
+    // 씬 전환
+    SceneManager.LoadScene("GameOverSecne");
+    Debug.Log("BlackScene Go");
+}
     /*    
     // 체력 회복 함수
     public void Heal(int amount)
