@@ -22,11 +22,11 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
-  - player
-  - OffDamge
+  - platform
   - Enemy
+  - player
+  - playerDamage
+  - Ground
   - 
   - 
   - 
