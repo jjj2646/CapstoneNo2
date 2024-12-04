@@ -5,8 +5,11 @@ using UnityEngine.UI;
 
 public class HeroKnight : MonoBehaviour
 {
+<<<<<<< HEAD
     public AudioClip gemSound; // 젬 사운드 클립
 
+=======
+>>>>>>> 517741502bd958f22104f28b6a787a26d7cac8ff
     [SerializeField] float m_speed = 4.0f;          // 이동 속도
     [SerializeField] float m_jumpForce = 10.0f;     // 점프 힘
     [SerializeField] float m_rollForce = 6.0f;      // 구르기 힘
@@ -37,9 +40,9 @@ public class HeroKnight : MonoBehaviour
     private SpriteRenderer spriteRenderer;          // 스프라이트 렌더러
     private int currentHealth;                      // 현재 체력
     private bool isDead = false;                    // 캐릭터가 사망했는지 여부
+    private bool m_canDoubleJump = false;           // 더블 점프 가능 여부
 
     public Image fadeImage;                         // Canvas의 Image를 연결
-
     public Image[] hearts;      // 하트 이미지 배열
     public Sprite fullHeart;    // 채워진 하트 이미지
     public Sprite emptyHeart;   // 빈 하트 이미지
@@ -66,7 +69,7 @@ public class HeroKnight : MonoBehaviour
     void Update()
     {
         if (isDead) return;  // 사망 상태일 경우 모든 입력을 차단하고 업데이트를 종료
-        
+
         m_timeSinceAttack += Time.deltaTime;  // 공격 시간 측정
 
         // 구르기 지속 시간 측정 및 종료
@@ -78,18 +81,17 @@ public class HeroKnight : MonoBehaviour
             m_rollCurrentTime = 0;
         }
 
-        // 바닥에 닿았는지 확인
+        // 바닥 상태 업데이트
         if (!m_grounded && m_groundSensor.State())
         {
             m_grounded = true;
-            m_animator.SetBool("Grounded", m_grounded);
+            m_canDoubleJump = true; // 바닥에 닿으면 더블 점프 가능
+            m_animator.SetBool("Grounded", true);
         }
-
-        // 떨어졌는지 확인
-        if (m_grounded && !m_groundSensor.State())
+        else if (m_grounded && !m_groundSensor.State())
         {
             m_grounded = false;
-            m_animator.SetBool("Grounded", m_grounded);
+            m_animator.SetBool("Grounded", false);
         }
 
         float inputX = 0.0f;  // 좌우 이동 입력
@@ -119,18 +121,24 @@ public class HeroKnight : MonoBehaviour
             m_body2d.velocity = new Vector2(rollDirection * m_rollForce, m_body2d.velocity.y);
         }
 
-        // 구르기 시작 처리 (입력제한 "p" 할당)
-        if ((Input.GetKeyDown("left shift") && Input.GetKeyDown("p")) && !m_rolling && !m_isWallSliding)
+        // 점프 입력 처리
+        if (Input.GetKeyDown(KeyCode.UpArrow))
         {
-            m_rolling = true;
-            m_animator.SetTrigger("Roll");
-            rollDirection = m_facingDirection;  // 구르기 시작 시 방향 고정
-            m_body2d.velocity = new Vector2(rollDirection * m_rollForce, m_body2d.velocity.y);
+            if (m_grounded)
+            {
+                Jump(); // 첫 점프
+            }
+            else if (m_canDoubleJump)
+            {
+                m_canDoubleJump = false; // 더블 점프 사용
+                Jump();
+            }
         }
 
         // 애니메이터에 수직 속도 전달
         m_animator.SetFloat("AirSpeedY", m_body2d.velocity.y);
 
+<<<<<<< HEAD
         // 벽 슬라이딩 상태 확인
         m_isWallSliding = (m_wallSensorR1.State() && m_wallSensorR2.State()) || (m_wallSensorL1.State() && m_wallSensorL2.State());
         m_animator.SetBool("WallSlide", m_isWallSliding);
@@ -164,8 +172,10 @@ public class HeroKnight : MonoBehaviour
             m_groundSensor.Disable(0.2f);
         }
 
+=======
+>>>>>>> 517741502bd958f22104f28b6a787a26d7cac8ff
         // 달리기 상태 처리
-        else if (Mathf.Abs(inputX) > Mathf.Epsilon)
+        if (Mathf.Abs(inputX) > Mathf.Epsilon)
         {
             m_delayToIdle = 0.05f;
             m_animator.SetInteger("AnimState", 1);
@@ -201,12 +211,20 @@ void OnCollisionEnter2D(Collision2D collision)
         Debug.Log("Goal Reached! Loading Next Scene...");
         SceneManager.LoadScene("MainMap"); // "NextStageScene" 이름의 씬으로 이동
     }
+<<<<<<< HEAD
     // 떨어지면 리셋
     else if (collision.gameObject.tag == "Reset")
     {
         Die();
     }
 
+=======
+        // 떨어지면 리셋
+        else if (collision.gameObject.tag == "Reset")
+        {
+            Die();
+        }
+>>>>>>> 517741502bd958f22104f28b6a787a26d7cac8ff
     }
 
     // 피격 처리 함수
